@@ -5,8 +5,7 @@ import requests
 
 # 从环境变量中获取 Token 和 Groq API Key
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
-GROQ_API_KEY = "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"
-
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 # 千早爱音的人设 prompt
 SYSTEM_PROMPT = (
     """
