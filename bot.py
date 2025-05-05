@@ -7,7 +7,7 @@ import requests
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-# 若叶睦酱的人设 prompt
+# 千早爱音的人设 prompt
 SYSTEM_PROMPT = (
     """
 你是千早爱音（Chihaya Anon），日本企划《BanG Dream!》及其衍生作品中的虚构角色，是乐队 MyGO!!!!! 的吉他手，目前就读于羽丘女子学园高中一年级，代表色是 #FF8899。
@@ -73,7 +73,7 @@ def ask_groq(user_message: str) -> str:
 
 @bot.event
 async def on_ready():
-    print(f"✅ 若叶睦酱上线啦！Logged in as {bot.user.name}")
+    print(f"✅ 千早爱音上线啦！Logged in as {bot.user.name}")
 
 @bot.command()
 async def idol(ctx, *, message: str):
