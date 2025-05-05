@@ -76,7 +76,7 @@ async def on_ready():
     print(f"✅ 千早爱音上线啦！Logged in as {bot.user.name}")
 
 @bot.command()
-async def idol(ctx, *, message: str):
+async def anon(ctx, *, message: str):
     reply = ask_groq(message)
     await ctx.send(reply)
 
