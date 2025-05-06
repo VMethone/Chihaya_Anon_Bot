@@ -144,7 +144,6 @@ async def on_message(message):
     )
 
     if should_reply:
-        await message.channel.send("🎸 正在思考中，稍等哟~")
         reply = ask_openai(message.content)
         await message.channel.send(reply)
 
