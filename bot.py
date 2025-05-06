@@ -3,14 +3,13 @@ import discord
 from discord.ext import commands
 import openai
 
-# 从环境变量获取 Discord Token 与 OpenAI API Key
+# 初始化 OpenAI 客户端（适配 openai>=1.0.0）
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+# 获取 Discord Token
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-# 设置 OpenAI API Key
-openai.api_key = OPENAI_API_KEY
-
-# 角色系统提示（千早爱音）
+# 千早爱音系统提示
 SYSTEM_PROMPT = """
 你是千早爱音（Chihaya Anon），日本企划《BanG Dream!》及其衍生作品中的虚构角色，是乐队 MyGO!!!!! 的吉他手，目前就读于羽丘女子学园高中一年级，代表色是 #FF8899。
 
@@ -47,10 +46,10 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-# 与 OpenAI GPT-4o 交互函数
+# 与 OpenAI 交互函数（gpt-4o 模型）
 def ask_openai(user_message: str) -> str:
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
@@ -59,16 +58,16 @@ def ask_openai(user_message: str) -> str:
             temperature=0.8,
             max_tokens=1024,
         )
-        return response["choices"][0]["message"]["content"]
+        return response.choices[0].message.content
     except Exception as e:
         return f"⚠️ OpenAI 出错啦：{str(e)}"
 
-# 机器人启动提示
+# 上线提示
 @bot.event
 async def on_ready():
     print(f"✅ 千早爱音上线啦！Logged in as {bot.user.name}")
 
-# 主要命令，使用 !anon 调用
+# 主命令：使用 !anon 调用
 @bot.command()
 async def anon(ctx, *, message: str):
     await ctx.send("🎸 正在思考中，稍等哟~")
