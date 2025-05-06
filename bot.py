@@ -51,7 +51,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 def ask_openai(user_message: str) -> str:
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-4o-mini-2024-07-18",
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_message}
