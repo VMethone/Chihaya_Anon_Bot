@@ -153,7 +153,8 @@ async def on_message(message):
 # 主命令：使用 !anon 调用
 @bot.command()
 async def anon(ctx, *, message: str):
-    reply = ask_openai(message)
+    async with ctx.typing():
+        reply = ask_openai(message)
     await ctx.send(reply)
 
 # 启动机器人
