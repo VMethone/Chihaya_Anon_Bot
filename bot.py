@@ -70,7 +70,6 @@ async def on_ready():
 # 主命令：使用 !anon 调用
 @bot.command()
 async def anon(ctx, *, message: str):
-    await ctx.send("🎸 正在思考中，稍等哟~")
     reply = ask_openai(message)
     await ctx.send(reply)
 
