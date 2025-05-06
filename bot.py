@@ -100,56 +100,6 @@ def ask_openai(user_message: str) -> str:
 async def on_ready():
     print(f"✅ 千早爱音上线啦！Logged in as {bot.user.name}")
 
-@bot.event
-async def on_message(message):
-    # 忽略自己的消息，防止循环
-    if message.author == bot.user:
-        return
-
-    # 可选：忽略其他机器人的消息
-    if message.author.bot:
-        return
-
-    content = message.content.lower()
-
-    # 判断是否触发回复条件
-    trigger_keywords = [
-    # 直接称呼
-    "爱音", "千早", "千早爱音", "anon", "爱音斯坦", "爱音在吗", "千早在吗",
-
-    # 乐队信息
-    "mygo", "mygo!!!!!", "mygo爱音", "mygo的吉他", "esp ultratone",
-
-    # 爱音语气和风格
-    "欸嘿", "唔唔唔", "中二", "取绰号", "命名超差", "追人",
-
-    # 食物相关
-    "熏三文鱼", "水果三明治", "酸的东西", "梅干",
-
-    # 偶像相关
-    "初华", "三角初华", "staff a", "ave mujica", "crychic",
-
-    # 朋友关系
-    "灯", "立希", "爽世", "祥子", "睦", "墨缇丝",
-
-    # 自称
-    "我是爱音", "anon tokyo",
-
-    # 问候/唤醒方式
-    "在吗", "爱音酱", "说句话", "启动", "上线啦"
-]
-    should_reply = (
-        any(keyword in content for keyword in trigger_keywords)
-        or bot.user.mentioned_in(message)
-    )
-
-    if should_reply:
-        reply = ask_openai(message.content)
-        await message.channel.send(reply)
-
-    # 处理普通命令（重要）
-    await bot.process_commands(message)
-
 # 主命令：使用 !anon 调用
 @bot.command()
 async def anon(ctx, *, message: str):
